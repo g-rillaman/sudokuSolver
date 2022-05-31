@@ -28,10 +28,8 @@ def depth_first_search(partial_state):
             #print("Goal!")
             return new_state
         if new_state.is_valid():
-            print('->')
             deep_state = depth_first_search(new_state)
             if deep_state is not None and deep_state.is_goal():
                 return deep_state
         
-    print('<<<')
     return None # This is returned if no valid solutions exist
