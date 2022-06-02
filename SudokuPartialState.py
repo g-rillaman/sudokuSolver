@@ -56,7 +56,7 @@ class SudokuPartialState:
     
     def no_repeats(self):
         """
-        Return true if all rows, cols and boxes have are valid, false otherwise
+        Return true if all rows, cols and boxes are valid, false otherwise
         """        
         # validate all rows        
         for c in range(9):
