@@ -154,6 +154,13 @@ class ToroidalMatrix:
 
         self.matrix[0][0].left = self.header
         self.matrix[0][no_of_cols-1].right = self.header
+
+    def print_matrix(self) -> None:
+        no_of_rows, no_of_cols = len(self.matrix), len(self.matrix[0])
+        to_print = [[1 if self.matrix[i][j] else 0 for j in range(no_of_cols)] for i in range(no_of_rows)]
+
+        for i in range(no_of_rows):
+            print(to_print[i])
         
     @staticmethod
     def get_left(pos: int, no_of_cols: int):
@@ -257,6 +264,8 @@ def test():
 
     tor = ToroidalMatrix()
     tor.fill(constraint_matrix)
+
+    tor.print_matrix()
 
     search(0, tor)
 
