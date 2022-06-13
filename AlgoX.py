@@ -26,10 +26,14 @@ def solve_sudoku(size, grid):
     X = inverse_representation(Y, X)
     
     # Remove constraints that are already satisfied 
-    for i, row in enumerate(grid):
-        for j, n in enumerate(row):
-            if n:
-                cover(X, Y, (i, j, n))
+    try:
+        for i, row in enumerate(grid):
+            for j, n in enumerate(row):
+                if n:
+                    cover(X, Y, (i, j, n))
+    except KeyError as e:
+        # Key Error arises when we can't remove _____ - there is no solution
+        yield [[-1]*9]*9
     
     for solution in solve(X, Y, []):
         for (row, col, number) in solution:
@@ -86,7 +90,7 @@ def uncover(X, Y, row, removed_cols) -> None:
                     X[k].add(i)
 
 def test() -> None:
-    grid = [
+    valid_grid = [
         [5, 3, 0, 0, 7, 0, 0, 0, 0],
         [6, 0, 0, 1, 9, 5, 0, 0, 0],
         [0, 9, 8, 0, 0, 0, 0, 6, 0],
@@ -98,8 +102,31 @@ def test() -> None:
         [0, 0, 0, 0, 8, 0, 0, 7, 9]
         ]
 
-    for solution in solve_sudoku((3, 3), grid):
-        print(*solution, sep='\n')
+    solved_grid = []
+    for solution in solve_sudoku((3, 3), valid_grid):
+        #print(*solution, sep='\n')
+        solved_grid = solution
+    print("Valid Grid: ")
+    print(solved_grid)
+
+    invalid_grid = [
+        [8, 5, 2, 9, 7, 6, 2, 4, 3,],
+        [6, 7, 9, 1, 4, 3, 2, 8, 5,],
+        [0, 3, 1, 2, 5, 8, 7, 6, 9,],
+        [3, 1, 4, 5, 2, 7, 8, 9, 6,],
+        [7, 6, 8, 3, 9, 1, 4, 5, 0,],
+        [9, 2, 5, 6, 0, 0, 3, 7, 1,],
+        [5, 4, 3, 8, 6, 2, 9, 1, 7,],
+        [1, 9, 7, 4, 3, 5, 0, 2, 8,],
+        [2, 8, 6, 7, 1, 9, 5, 3, 4,],
+        ]
+    
+    solved_grid = []
+    for solution in solve_sudoku((3, 3), valid_grid):
+        #print(*solution, sep='\n')
+        solved_grid = solution
+    print("Invalid Grid: ")
+    print(solved_grid)
 
 if __name__ == "__main__":
     test()
