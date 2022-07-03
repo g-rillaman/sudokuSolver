@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from driver import sudoku_solver
+from AlgoX import solve_sudoku
 
 SKIP_TESTS = False
 
@@ -22,7 +22,9 @@ if not SKIP_TESTS:
             print(sudoku)
             
             start_time = time.process_time()
-            your_solution = sudoku_solver(sudoku)
+            for solution in solve_sudoku((3, 3), sudoku):
+                #print(*solution, sep='\n')
+                your_solution = solution
             end_time = time.process_time()
             
             print(f"This is your solution for {difficulty} sudoku number", i)
@@ -39,5 +41,5 @@ if not SKIP_TESTS:
             print("This sudoku took", end_time-start_time, "seconds to solve.\n")
 
         print(f"{count}/{len(sudokus)} {difficulty} sudokus correct")
-        if count < len(sudokus):
-            break
+        #if count < len(sudokus):
+            #break
